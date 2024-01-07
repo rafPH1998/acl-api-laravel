@@ -21,7 +21,7 @@ class AuthApiController extends Controller
   {
       $user = $this->user->findByEmail($req->email);
       if (!$user || !Hash::check($req->password, $user->password)) {
-          return response()->json(['error' => 'Credenciais inválidas']);
+          return response()->json(['error' => 'Credenciais inválidas'], 422);
       }
       $user->tokens()->delete();
       $token = $user->createToken($req->device_name)->plainTextToken;
