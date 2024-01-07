@@ -16,6 +16,11 @@ class PermissionUserController extends Controller
 
     public function syncPermissionsOfUser(string $userId, Request $request)
     {
+      /*   $perm = collect($request->permissions);
+
+        $permIds = $perm->filter(fn($p) => $p === 'on')->keys();
+        dd($perm);
+        exit; */
         $response = $this->user->syncPermissions($userId, $request->permissions);
         if (!$response) {
             return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);

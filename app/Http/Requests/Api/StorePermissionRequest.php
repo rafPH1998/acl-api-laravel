@@ -28,7 +28,7 @@ class StorePermissionRequest extends FormRequest
                 'min:3',
                 'max:255',
                 'string',
-                Rule::unique('permissions')->ignore($this->permission)
+                //Rule::unique('permissions')->ignore($this->permission)
             ],
             'description' => [
                 // 'nullable',

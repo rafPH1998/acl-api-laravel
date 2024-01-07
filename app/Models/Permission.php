@@ -21,7 +21,7 @@ class Permission extends Model
     public function getAll(string $filter = '')
     {
         return $this->when(!empty($filter), fn($query) => $query->where('name', 'LIKE', "%{$filter}%"))
-                ->paginate(10);
+                ->get();
     }
 
     public function findById(string $permissionId): ?Permission

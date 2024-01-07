@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function findById(string $userId): ?User
     {
-        return $this->find($userId);
+        return $this->with('permissions')->find($userId);
     }
 
     public function createUser(array $data): User
@@ -112,11 +112,23 @@ class User extends Authenticatable
         return $this->find($user)->permissions()->get();
     }
 
-    public function hasPermissions(User $user, string $permission): bool
+    public function hasPermissions(User $user): bool
     {
         if ($user->isSuperAdmin()) {
             return true;
         }
-        return $user->permissions()->where('name', $permission)->exists();
+    
+        $permissions = $user->permissions()->get();
+    
+        foreach ($permissions as $permission) {
+            if ($user->permissions()
+                ->where('name', $permission->name)
+                ->where('description', $permission->description)
+                ->exists()) {
+                return true;
+            }
+        }
+    
+        return false;
     }
 }

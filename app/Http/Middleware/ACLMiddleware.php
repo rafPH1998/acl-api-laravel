@@ -21,8 +21,7 @@ class ACLMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $routeName = Route::currentRouteName();
-        if (!$this->user->hasPermissions($request->user(), $routeName)) {
+        if (!$this->user->hasPermissions($request->user())) {
             abort(403, 'Not authorized');
         }
         return $next($request);

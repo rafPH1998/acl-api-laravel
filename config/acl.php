@@ -2,7 +2,7 @@
 
 return [
     'super_admins' => [
-        'rafael@gmail.com.br',
+        //'rafael@example.com',
         'test@example.com'
     ],
 ];
